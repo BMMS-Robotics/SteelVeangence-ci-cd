@@ -64,3 +64,10 @@ jobs:
 
     - name: Compile and run tests on robot code
       run: ./gradlew build
+      
+    - name: Upload Lint Results
+      uses: actions/upload-artifact@v3
+      with:
+        name: lint-results
+        path: TeamCode/build/reports/lint-results-debug.html
+

@@ -19,20 +19,21 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-      
+
     - name: Ensure Android SDK directory exists
       run: mkdir -p $HOME/Android/Sdk
 
+    - name: List Android SDK directory
+      run: ls -la $HOME/Android/Sdk
+
     - name: Cache Android SDK
+      id: cache-android-sdk
       uses: actions/cache@v3
       with:
         path: $HOME/Android/Sdk
         key: android-sdk-${{ hashFiles('**/build.gradle', '**/settings.gradle') }}
         restore-keys: |
           android-sdk-
-
-    - name: List Android SDK directory
-      run: ls -la $HOME/Android/Sdk
 
     - name: Install Android SDK
       if: steps.cache-android-sdk.outputs.cache-hit != 'true'
@@ -52,6 +53,7 @@ jobs:
       run: mkdir -p ~/.gradle/caches
 
     - name: Cache Gradle
+      id: cache-gradle
       uses: actions/cache@v3
       with:
         path: ~/.gradle/caches
@@ -64,10 +66,9 @@ jobs:
 
     - name: Compile and run tests on robot code
       run: ./gradlew build
-      
+
     - name: Upload Lint Results
       uses: actions/upload-artifact@v3
       with:
         name: lint-results
         path: TeamCode/build/reports/lint-results-debug.html
-

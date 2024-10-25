@@ -5,4 +5,4 @@ This repository contains the public FTC SDK for the INTO THE DEEP (2024-2025) co
 
 ## What This Is
 
-This is the repo for Steel Veangence which automatically validates code using Github actions
+This is the repo for Steel Veangence which automatically validates code using Github actions 

@@ -40,12 +40,12 @@ public class DriveTest extends LinearOpMode {
             rightBackDrive.setPower(0.5);
             rightFrontDrive.setPower(-0.5);
             leftFrontDrive.setPower(-0.5);
-           // sleep(500);
+            sleep(500);
 
-            //leftFrontDrive.setPower(0);
-            //leftBackDrive.setPower(0);
-            //rightFrontDrive.setPower(0);
-            //rightBackDrive.setPower(0);
+            leftFrontDrive.setPower(0);
+            leftBackDrive.setPower(0);
+            rightFrontDrive.setPower(0);
+            rightBackDrive.setPower(0);
         }
     }
 }

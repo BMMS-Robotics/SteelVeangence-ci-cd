@@ -9,7 +9,7 @@ This is the repo for robotics which automatically validates FTC code using Githu
 
 ## Usage 
 
-To use open the [team code folder]() then add you code
+To use open the [team code folder](https://github.com/BMMS-Robotics/Robotics-ci-cd/tree/master/TeamCode/src/main/java/org/firstinspires/ftc/teamcode) then add you code
 
 ## Contributing
 

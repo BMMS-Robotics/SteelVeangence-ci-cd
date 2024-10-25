@@ -27,11 +27,17 @@ jobs:
     - name: Ensure Android SDK directory exists
       run: mkdir -p $HOME/Android/Sdk
 
+    - name: Check Android SDK directory before caching
+      run: ls -la $HOME/Android/Sdk
+
     - name: Cache Android SDK
       id: cache-android-sdk
       uses: actions/cache@v3
       with:
-        path: $HOME/Android/Sdk
+        path: |
+          $HOME/Android/Sdk/cmdline-tools
+          $HOME/Android/Sdk/platforms
+          $HOME/Android/Sdk/build-tools
         key: android-sdk-${{ hashFiles('**/build.gradle', '**/settings.gradle') }}
         restore-keys: |
           android-sdk-

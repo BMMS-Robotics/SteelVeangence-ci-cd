@@ -19,7 +19,7 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-
+      
     - name: Install Android SDK
       run: |
         sudo apt-get update
@@ -27,8 +27,10 @@ jobs:
         mkdir -p $HOME/Android/Sdk
         wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -O cmdline-tools.zip
         unzip cmdline-tools.zip -d $HOME/Android/Sdk/cmdline-tools
-        yes | $HOME/Android/Sdk/cmdline-tools/tools/bin/sdkmanager --sdk_root=$HOME/Android/Sdk --licenses
-        $HOME/Android/Sdk/cmdline-tools/tools/bin/sdkmanager --sdk_root=$HOME/Android/Sdk "platforms;android-30" "build-tools;30.0.3"
+        # Move the extracted tools to the right path
+        mv $HOME/Android/Sdk/cmdline-tools/cmdline-tools $HOME/Android/Sdk/cmdline-tools/latest
+        yes | $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/Android/Sdk --licenses
+        $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/Android/Sdk "platforms;android-30" "build-tools;30.0.3"
 
     - name: Create local.properties
       run: echo "sdk.dir=$HOME/Android/Sdk" > local.properties

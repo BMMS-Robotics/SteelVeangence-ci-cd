@@ -39,7 +39,7 @@ jobs:
         mv $HOME/Android/Sdk/cmdline-tools/cmdline-tools $HOME/Android/Sdk/cmdline-tools/latest
         yes | $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/Android/Sdk --licenses
         $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/Android/Sdk "platforms;android-30" "build-tools;30.0.3"
-
+      
     - name: Create local.properties
       run: echo "sdk.dir=$HOME/Android/Sdk" > local.properties
 

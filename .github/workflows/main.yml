@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ master ]
 
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +27,7 @@ jobs:
     - name: Ensure Android SDK directory exists
       run: mkdir -p $HOME/Android/Sdk
 
-    - name: List Android SDK directory
+    - name: List Android SDK directory (before caching)
       run: ls -la $HOME/Android/Sdk
 
     - name: Cache Android SDK
@@ -35,6 +39,9 @@ jobs:
         restore-keys: |
           android-sdk-
 
+    - name: Check Android SDK directory after cache attempt
+      run: ls -la $HOME/Android/Sdk
+
     - name: Install Android SDK
       if: steps.cache-android-sdk.outputs.cache-hit != 'true'
       run: |
@@ -45,6 +52,9 @@ jobs:
         mv $HOME/Android/Sdk/cmdline-tools/cmdline-tools $HOME/Android/Sdk/cmdline-tools/latest
         yes | $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/Android/Sdk --licenses
         $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/Android/Sdk "platforms;android-30" "build-tools;30.0.3"
+
+    - name: List Android SDK directory after installation
+      run: ls -la $HOME/Android/Sdk
 
     - name: Create local.properties
       run: echo "sdk.dir=$HOME/Android/Sdk" > local.properties

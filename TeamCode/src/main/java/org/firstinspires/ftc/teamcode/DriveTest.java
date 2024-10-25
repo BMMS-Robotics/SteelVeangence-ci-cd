@@ -36,7 +36,7 @@ public class DriveTest extends LinearOpMode {
         runtime.reset();
 
         while (opModeIsActive()) {
-            leftBackDrive.setPower(-0.5)
+            leftBackDrive.setPower(-0.5);
             rightBackDrive.setPower(0.5);
             rightFrontDrive.setPower(-0.5);
             leftFrontDrive.setPower(-0.5);

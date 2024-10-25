@@ -27,9 +27,6 @@ jobs:
     - name: Ensure Android SDK directory exists
       run: mkdir -p $HOME/Android/Sdk
 
-    - name: List Android SDK directory (before caching)
-      run: ls -la $HOME/Android/Sdk
-
     - name: Cache Android SDK
       id: cache-android-sdk
       uses: actions/cache@v3
@@ -38,9 +35,6 @@ jobs:
         key: android-sdk-${{ hashFiles('**/build.gradle', '**/settings.gradle') }}
         restore-keys: |
           android-sdk-
-
-    - name: Check Android SDK directory after cache attempt
-      run: ls -la $HOME/Android/Sdk
 
     - name: Install Android SDK
       if: steps.cache-android-sdk.outputs.cache-hit != 'true'
@@ -53,14 +47,8 @@ jobs:
         yes | $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/Android/Sdk --licenses
         $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/Android/Sdk "platforms;android-30" "build-tools;30.0.3"
 
-    - name: List Android SDK directory after installation
-      run: ls -la $HOME/Android/Sdk
-
     - name: Create local.properties
       run: echo "sdk.dir=$HOME/Android/Sdk" > local.properties
-
-    - name: Ensure Gradle cache directory exists
-      run: mkdir -p ~/.gradle/caches
 
     - name: Cache Gradle
       id: cache-gradle
@@ -70,9 +58,6 @@ jobs:
         key: gradle-${{ hashFiles('**/build.gradle', '**/settings.gradle') }}
         restore-keys: |
           gradle-
-
-    - name: List Gradle cache directory
-      run: ls -la ~/.gradle/caches
 
     - name: Compile and run tests on robot code
       run: ./gradlew build

@@ -38,9 +38,12 @@ jobs:
           $HOME/Android/Sdk/cmdline-tools
           $HOME/Android/Sdk/platforms
           $HOME/Android/Sdk/build-tools
-        key: android-sdk-${{ hashFiles('**/build.gradle', '**/settings.gradle') }}
+        key: sdk-${{ runner.os }}-android-${{ hashFiles('**/build.gradle', '**/settings.gradle') }}
         restore-keys: |
-          android-sdk-
+          sdk-${{ runner.os }}-android-
+
+    - name: Check if cache was hit
+      run: echo "Cache hit: ${{ steps.cache-android-sdk.outputs.cache-hit }}"
 
     - name: Install Android SDK
       if: steps.cache-android-sdk.outputs.cache-hit != 'true'

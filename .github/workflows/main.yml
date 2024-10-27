@@ -30,8 +30,8 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
-    - name: Acceept Android SDK Licenses
-      run: yes | ~/Android/Sdk/tools/bin/sdkmanager --licenses
+    - name: Accept Android SDK Licenses
+      run: yes | $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager --licenses
       
     - name: Create local.properties
       run: echo "sdk.dir=$HOME/Android/Sdk" > local.properties
@@ -47,7 +47,7 @@ jobs:
         key: gradle-${{ hashFiles('**/build.gradle', '**/settings.gradle') }}
         restore-keys: |
           gradle-
-
+          
     - name: Compile and run tests on robot code
       run: ./gradlew build
 

@@ -29,6 +29,9 @@ jobs:
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
+
+    - name: Acceept Android SDK Licenses
+      run: yes | ~/Android/Sdk/tools/bin/sdkmanager --licenses
       
     - name: Create local.properties
       run: echo "sdk.dir=$HOME/Android/Sdk" > local.properties

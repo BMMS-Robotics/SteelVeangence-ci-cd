@@ -27,15 +27,7 @@ jobs:
     - name: Ensure Android SDK directory exists
       run: mkdir -p $HOME/Android/Sdk
 
-    - name: SDK Cache
-      id: sdk-cache
-      uses: actions/cache@v2
-      with:
-        path: $HOME/Android/sdk
-        key: sdk-cache-${{ hashFiles('**/*.gradle*', '**/gradlew*', '**/local.properties') }}
-        
     - name: Install Android SDK
-      if: steps.sdk-cache.outputs.cache-hit != 'true'
       run: |
         sudo apt-get update
         sudo apt-get install -y wget unzip

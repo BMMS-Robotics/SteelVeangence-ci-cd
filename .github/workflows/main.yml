@@ -30,26 +30,6 @@ jobs:
     - name: Check Android SDK directory before caching
       run: ls -la $HOME/Android/Sdk
 
-    - name: Cache Android SDK
-      id: cache-android-sdk
-      uses: actions/cache@v3
-      with:
-        path: |
-          $HOME/Android/Sdk/cmdline-tools
-          $HOME/Android/Sdk/platforms
-          $HOME/Android/Sdk/build-tools
-        key: sdk-${{ runner.os }}-android-${{ hashFiles('**/build.gradle', '**/settings.gradle') }}
-        restore-keys: |
-          sdk-${{ runner.os }}-android-
-
-    - name: Log cache status
-      run: |
-        if [[ "${{ steps.cache-android-sdk.outputs.cache-hit }}" == 'true' ]]; then
-          echo "Cache was hit."
-        else
-          echo "Cache was not hit, installing SDK."
-        fi
-
     - name: Install Android SDK
       if: steps.cache-android-sdk.outputs.cache-hit != 'true'
       run: |
@@ -63,7 +43,10 @@ jobs:
 
     - name: Create local.properties
       run: echo "sdk.dir=$HOME/Android/Sdk" > local.properties
-
+      
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
+      
     - name: Cache Gradle
       id: cache-gradle
       uses: actions/cache@v3

@@ -54,8 +54,8 @@ jobs:
     - name: Compile and run tests on robot code
       run: ./gradlew build
 
-    - name: Upload Lint Results
+    - name: Upload build reports
       uses: actions/upload-artifact@v4
       with:
-        name: lint-results
-        path: TeamCode/build/reports/lint-results-debug.html
+        name: Reports
+        path: TeamCode/build/reports/

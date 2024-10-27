@@ -31,7 +31,7 @@ jobs:
       id: sdk-cache
       uses: actions/cache@v2
       with:
-        path: /usr/local/lib/android/sdk
+        path: $HOME/Android/sdk
         key: sdk-cache-${{ hashFiles('**/*.gradle*', '**/gradlew*', '**/local.properties') }}
         
     - name: Install Android SDK
